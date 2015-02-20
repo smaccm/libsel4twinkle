@@ -24,6 +24,14 @@
  * array of untyped memory items to use.
  */
 
+#ifndef UNUSED_NDEBUG
+# ifdef NDEBUG
+#  define UNUSED_NDEBUG(x)  ((void)x)
+# else
+#  define UNUSED_NDEBUG()
+# endif
+#endif
+
 #include <stdio.h>
 #include <assert.h>
 

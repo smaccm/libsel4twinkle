@@ -18,6 +18,14 @@
  * particularly deep.
  */
 
+#ifndef UNUSED_NDEBUG
+# ifdef NDEBUG
+#  define UNUSED_NDEBUG(x)  ((void)x)
+# else
+#  define UNUSED_NDEBUG()
+# endif
+#endif
+
 #include <assert.h>
 #include <stdio.h>
 
