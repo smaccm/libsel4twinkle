@@ -22,7 +22,7 @@
 # ifdef NDEBUG
 #  define UNUSED_NDEBUG(x)  ((void)x)
 # else
-#  define UNUSED_NDEBUG()
+#  define UNUSED_NDEBUG(x)
 # endif
 #endif
 
