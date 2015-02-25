@@ -169,6 +169,22 @@ allocator_alloc_cslot(struct allocator *allocator)
 }
 
 /*
+ * Free an empty cslot.
+ * We can only free a slot if it was the last to be allocated
+ */
+void
+allocator_free_cslot(struct allocator *allocator, seL4_CPtr slot)
+{
+    seL4_CPtr next_slot = allocator->cslots.first
+                        + allocator->num_slots_used
+                        + allocator->root_cnode_offset;
+    if(next_slot == slot + 1) {
+        allocator->num_slots_used--;
+    }
+}
+
+
+/*
  * Allocate empty cslots, those cslots are contiguous.
  *
  * Return the first cslot.

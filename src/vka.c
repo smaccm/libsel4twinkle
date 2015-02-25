@@ -31,6 +31,11 @@ static inline int twinkle_vka_cspace_alloc(void *self, seL4_CPtr *res)
     return *res == 0;
 }
 
+static inline void twinkle_vka_cspace_free(void *self, seL4_CPtr slot)
+{
+    allocator_free_cslot((struct allocator *)self, slot);
+}
+
 static inline void twinkle_vka_cspace_make_path(void *self, seL4_CPtr slot, cspacepath_t *res)
 {
     struct allocator *allocator = (struct allocator *) self;
@@ -78,10 +83,10 @@ twinkle_init_vka(vka_t* vka, struct allocator *allocator)
     vka->cspace_alloc = twinkle_vka_cspace_alloc;
     vka->cspace_make_path = twinkle_vka_cspace_make_path;
     vka->utspace_alloc = twinkle_vka_utspace_alloc;
+    vka->cspace_free = twinkle_vka_cspace_free;
 
     /* twinkle does not implement these functions */
     vka->utspace_free = dummy_vka_utspace_free;
-    vka->cspace_free = dummy_vka_cspace_free;
     vka->utspace_free = dummy_vka_utspace_free;
     vka->utspace_paddr = dummy_vka_utspace_paddr;
 }

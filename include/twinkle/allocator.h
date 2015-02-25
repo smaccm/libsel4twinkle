@@ -85,6 +85,9 @@ allocator_add_root_untyped_item(struct allocator *allocator,
 seL4_CPtr
 allocator_alloc_cslot(struct allocator *allocator);
 
+void
+allocator_free_cslot(struct allocator *allocator, seL4_CPtr slot);
+
 seL4_CPtr
 allocator_alloc_cslots(struct allocator *allocator, int num_slots);
 
