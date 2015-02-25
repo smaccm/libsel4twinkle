@@ -36,7 +36,7 @@
  */
 static void
 fill_allocator_with_resources(struct allocator *allocator,
-        seL4_BootInfo *bootinfo)
+                              seL4_BootInfo *bootinfo)
 {
     int i;
 

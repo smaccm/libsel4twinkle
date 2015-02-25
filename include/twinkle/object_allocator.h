@@ -17,7 +17,7 @@
 
 seL4_CPtr
 allocator_alloc_kobject(struct allocator *allocator,
-        seL4_Word item_type, seL4_Word item_size);
+                        seL4_Word item_type, seL4_Word item_size);
 
 #endif /* OBJECT_ALLOCATOR_H */
 

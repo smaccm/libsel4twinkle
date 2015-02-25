@@ -39,7 +39,7 @@
  */
 seL4_CPtr
 allocator_alloc_kobject(struct allocator *allocator,
-        seL4_Word item_type, seL4_Word item_size)
+                        seL4_Word item_type, seL4_Word item_size)
 {
     unsigned long size_bits;
     seL4_CPtr untyped_memory;
@@ -55,7 +55,7 @@ allocator_alloc_kobject(struct allocator *allocator,
 
     /* Allocate an object. */
     result = allocator_retype_untyped_memory(allocator, untyped_memory,
-             item_type, item_size, 1, &cap_range);
+                                             item_type, item_size, 1, &cap_range);
 
     /* We should have gotten either zero items (if we ran out of caps), or one
      * item (if everything went well). If we get more than one, we

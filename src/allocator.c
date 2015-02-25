@@ -85,7 +85,7 @@ allocator_create(struct allocator *allocator,
     /* Copy untyped items. */
     for (i = 0; i < num_items; i++)
         allocator_add_root_untyped_item(allocator,
-                items[i].cap, items[i].size_bits);
+                                        items[i].cap, items[i].size_bits);
 }
 
 /*
@@ -99,9 +99,9 @@ allocator_create(struct allocator *allocator,
  */
 void
 allocator_create_child(struct allocator *parent, struct allocator *child,
-        seL4_CPtr root_cnode, unsigned long root_cnode_depth,
-        unsigned long root_cnode_offset,
-        unsigned long first_slot, unsigned long num_slots)
+                       seL4_CPtr root_cnode, unsigned long root_cnode_depth,
+                       unsigned long root_cnode_offset,
+                       unsigned long first_slot, unsigned long num_slots)
 {
     int i;
 
@@ -129,7 +129,7 @@ allocator_create_child(struct allocator *parent, struct allocator *child,
  */
 void
 allocator_add_root_untyped_item(struct allocator *allocator,
-        seL4_CPtr cap, unsigned long size_bits)
+                                seL4_CPtr cap, unsigned long size_bits)
 {
     int n;
 
@@ -176,9 +176,9 @@ void
 allocator_free_cslot(struct allocator *allocator, seL4_CPtr slot)
 {
     seL4_CPtr next_slot = allocator->cslots.first
-                        + allocator->num_slots_used
-                        + allocator->root_cnode_offset;
-    if(next_slot == slot + 1) {
+                          + allocator->num_slots_used
+                          + allocator->root_cnode_offset;
+    if (next_slot == slot + 1) {
         allocator->num_slots_used--;
     }
 }
@@ -213,8 +213,8 @@ allocator_alloc_cslots(struct allocator *allocator, int num_slots)
  */
 int
 allocator_retype_untyped_memory(struct allocator *allocator,
-        seL4_CPtr untyped_item, seL4_Word item_type, seL4_Word item_size,
-        int num_items, struct cap_range *result)
+                                seL4_CPtr untyped_item, seL4_Word item_type, seL4_Word item_size,
+                                int num_items, struct cap_range *result)
 {
     int max_objects;
     int error;
@@ -229,21 +229,21 @@ allocator_retype_untyped_memory(struct allocator *allocator,
     }
 
     /* Do the allocation. We expect at least one item will be created. */
-    #ifdef CONFIG_KERNEL_STABLE
+#ifdef CONFIG_KERNEL_STABLE
     error = seL4_Untyped_RetypeAtOffset(
                 untyped_item,
                 item_type, 0, item_size,
                 seL4_CapInitThreadCNode,
                 allocator->root_cnode, allocator->root_cnode_depth, allocator->cslots.first + allocator->num_slots_used,
                 num_items);
-    #else
+#else
     error = seL4_Untyped_Retype(
                 untyped_item,
                 item_type, item_size,
                 seL4_CapInitThreadCNode,
                 allocator->root_cnode, allocator->root_cnode_depth, allocator->cslots.first + allocator->num_slots_used,
                 num_items);
-    #endif
+#endif
     assert(!error);
 
     /* Save the allocation. */
@@ -301,7 +301,7 @@ allocator_alloc_untyped(struct allocator *allocator, unsigned long size_bits)
         return 0;
     }
     created_objects = allocator_retype_untyped_memory(allocator,
-                      big_untyped_item, seL4_UntypedObject, size_bits, 2, pool);
+                                                      big_untyped_item, seL4_UntypedObject, size_bits, 2, pool);
     if (!created_objects) {
         return 0;
     }

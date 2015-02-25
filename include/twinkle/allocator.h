@@ -74,13 +74,13 @@ allocator_create(struct allocator *allocator,
 
 void
 allocator_create_child(struct allocator *parent, struct allocator *child,
-        seL4_CPtr root_cnode, unsigned long root_cnode_depth,
-        unsigned long root_cnode_offset,
-        unsigned long first_slot, unsigned long num_slots);
+                       seL4_CPtr root_cnode, unsigned long root_cnode_depth,
+                       unsigned long root_cnode_offset,
+                       unsigned long first_slot, unsigned long num_slots);
 
 void
 allocator_add_root_untyped_item(struct allocator *allocator,
-        seL4_CPtr item, unsigned long size_bits);
+                                seL4_CPtr item, unsigned long size_bits);
 
 seL4_CPtr
 allocator_alloc_cslot(struct allocator *allocator);
@@ -96,8 +96,8 @@ allocator_alloc_untyped(struct allocator *allocator, unsigned long size_bits);
 
 int
 allocator_retype_untyped_memory(struct allocator *allocator,
-        seL4_CPtr untyped_item, seL4_Word item_type, seL4_Word item_size,
-        int num_items, struct cap_range *result);
+                                seL4_CPtr untyped_item, seL4_Word item_type, seL4_Word item_size,
+                                int num_items, struct cap_range *result);
 
 void
 allocator_reset(struct allocator *allocator);

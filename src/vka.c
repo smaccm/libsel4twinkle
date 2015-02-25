@@ -51,7 +51,7 @@ static inline void twinkle_vka_cspace_make_path(void *self, seL4_CPtr slot, cspa
 
 
 static inline int twinkle_vka_utspace_alloc(void *self, const cspacepath_t *dest, seL4_Word type,
-        seL4_Word size_bits, uint32_t *res)
+                                            seL4_Word size_bits, uint32_t *res)
 {
 
     struct allocator *allocator = (struct allocator *) self;
@@ -62,16 +62,16 @@ static inline int twinkle_vka_utspace_alloc(void *self, const cspacepath_t *dest
         return -1;
     }
 
-    #ifdef CONFIG_KERNEL_STABLE
+#ifdef CONFIG_KERNEL_STABLE
     /* retype into the type we want */
     return seL4_Untyped_RetypeAtOffset(untyped_memory, type, 0, size_bits, seL4_CapInitThreadCNode,
-            allocator->root_cnode, allocator->root_cnode_depth,
-            dest->capPtr, 1);
-    #else
+                                       allocator->root_cnode, allocator->root_cnode_depth,
+                                       dest->capPtr, 1);
+#else
     return seL4_Untyped_Retype(untyped_memory, type, size_bits, seL4_CapInitThreadCNode,
-            allocator->root_cnode, allocator->root_cnode_depth,
-            dest->capPtr, 1);
-    #endif
+                               allocator->root_cnode, allocator->root_cnode_depth,
+                               dest->capPtr, 1);
+#endif
 
 }
 
